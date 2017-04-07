@@ -30,6 +30,8 @@ export default class Board extends React.Component {
 							img={img}
 							x={colWidth * c}
 							y={rowHeight * r}
+							width={colWidth}
+							height={rowHeight}
 							id={(r * rows) + c + 1}
 						/>
 						)

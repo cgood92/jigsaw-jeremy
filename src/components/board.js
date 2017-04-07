@@ -30,8 +30,6 @@ export default class Board extends React.Component {
 							img={img}
 							x={colWidth * c}
 							y={rowHeight * r}
-							width={colWidth}
-							height={rowHeight}
 							id={(r * rows) + c + 1}
 						/>
 						)
@@ -40,8 +38,16 @@ export default class Board extends React.Component {
 	render() {
 		const pieces = this.generatePieces()
 		return (
-			<section>
+			<section className="root">
 				{pieces}
+				<style jsx>{`
+					.root {
+						display: grid;
+						grid-template: repeat(3, calc(100%/3)) / repeat(3, calc(100%/3));
+						width: 400px;
+						height: 400px;
+					}
+				`}</style>
 			</section>
 		)
 	}

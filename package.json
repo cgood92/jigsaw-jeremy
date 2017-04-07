@@ -1,0 +1,96 @@
+{
+	"name": "pingming",
+	"version": "1.0.0",
+	"description": "A demo to show understanding of RXjs",
+	"main": "dist/index.html",
+	"scripts": {
+		"build": "NODE_ENV=production webpack --config webpack.config.js",
+		"lint": "xo",
+		"start": "webpack-dev-server --hot --inline"
+	},
+	"author": "Clint Goodman",
+	"license": "ISC",
+	"dependencies": {
+		"babel-core": "^6.23.1",
+		"babel-eslint": "^7.2.1",
+		"babel-loader": "^6.4.0",
+		"babel-plugin-transform-class-properties": "^6.23.0",
+		"babel-preset-es2015": "^6.22.0",
+		"babel-preset-latest": "^6.24.0",
+		"babel-preset-react": "^6.23.0",
+		"css-loader": "^0.26.2",
+		"eslint-config-xo-react": "^0.11.1",
+		"eslint-plugin-react": "^6.10.3",
+		"html-webpack-plugin": "^2.28.0",
+		"node-sass": "^4.5.0",
+		"react": "^15.4.2",
+		"react-dom": "^15.4.2",
+		"rxjs": "^5.2.0",
+		"sass-loader": "^6.0.2",
+		"style-loader": "^0.13.2",
+		"styled-jsx": "^0.5.7",
+		"webpack": "^2.2.1",
+		"webpack-dev-server": "^2.4.1",
+		"xo": "^0.18.1"
+	},
+	"xo": {
+		"envs": [
+			"browser"
+		],
+		"esnext": true,
+		"extends": "xo-react",
+		"parser": "babel-eslint",
+		"semicolon": false,
+		"rules": {
+			"capitalized-comments": [
+				"off"
+			],
+			"comma-dangle": [
+				"error",
+				"always-multiline"
+			],
+			"import/extensions": [
+				"error",
+				"never",
+				{
+					"json": "always",
+					"svg": "always"
+				}
+			],
+			"import/order": [
+				"error",
+				{
+					"groups": [
+						"builtin",
+						[
+							"external",
+							"internal"
+						],
+						"parent",
+						[
+							"index",
+							"sibling"
+						]
+					]
+				}
+			],
+			"object-curly-spacing": [
+				"error",
+				"always"
+			],
+			"react/jsx-closing-bracket-location": [
+				"error",
+				"tag-aligned"
+			],
+			"react/jsx-sort-props": [
+				"off"
+			],
+			"react/no-array-index-key": [
+				"off"
+			],
+			"react/require-default-props": [
+				"off"
+			]
+		}
+	}
+}

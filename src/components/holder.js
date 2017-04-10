@@ -1,22 +1,22 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { getPlacedPieces, getPiece } from '../redux/selectors'
-import { unplacePiece } from '../redux/unplaced'
+import { getUnplacedPieces, getPiece } from '../redux/selectors'
+import { placePiece } from '../redux/placed'
 
 import Piece from './piece'
 
-class Board extends React.Component {
+class Holder extends React.Component {
 	static propTypes = {
 		pieces: PropTypes.array,
-		unplace: PropTypes.func,
+		place: PropTypes.func,
 		storeState: PropTypes.object,
 	}
 	onClick = pieceID => () => {
 		const {
-			unplace,
+			place,
 			storeState,
 		} = this.props
-		unplace(storeState, pieceID)
+		place(storeState, pieceID)
 	}
 	render() {
 		const { pieces = [] } = this.props
@@ -24,17 +24,15 @@ class Board extends React.Component {
 			<section className="root">
 				{pieces.map((data, key) =>
 					<Piece
-						key={key}
 						handleClick={this.onClick}
+						key={key}
 						{...data}
 					/>
 				)}
 				<style jsx>{`
 					.root {
-						display: grid;
-						grid-template: repeat(3, calc(100%/3)) / repeat(3, calc(100%/3));
-						width: 400px;
-						height: 400px;
+						display: flex;
+						flex-wrap: wrap;
 					}
 				`}</style>
 			</section>
@@ -43,14 +41,14 @@ class Board extends React.Component {
 }
 
 const mapStateToProps = state => ({
-	pieces: getPlacedPieces(state),
+	pieces: getUnplacedPieces(state),
 	storeState: state,
 })
 
 const mapDispatchToProps = dispatch => ({
-	unplace(storeState, pieceID) {
-		dispatch(unplacePiece(getPiece(storeState, pieceID)))
+	place(storeState, pieceID) {
+		dispatch(placePiece(getPiece(storeState, pieceID)))
 	},
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Board)
+export default connect(mapStateToProps, mapDispatchToProps)(Holder)

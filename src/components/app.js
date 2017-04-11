@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { createPiece } from '../redux/unplaced'
+import { getImage, getDimensions, getGrid } from '../redux/selectors'
 import Layout from './layout'
 
 class App extends React.Component {
@@ -53,12 +54,10 @@ class App extends React.Component {
 	}
 }
 
-const mapStateToProps = () => ({
-	img: 'https://pbs.twimg.com/profile_images/3560120116/4f71587922c2b76312e71e0512e9c0f5_400x400.png',
-	height: 400,
-	width: 400,
-	rows: 3,
-	cols: 3,
+const mapStateToProps = state => ({
+	img: getImage(state),
+	...getDimensions(state),
+	...getGrid(state),
 })
 
 const mapDispatchToProps = dispatch => ({

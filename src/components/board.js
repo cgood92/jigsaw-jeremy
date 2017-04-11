@@ -10,6 +10,10 @@ class Board extends React.Component {
 		pieces: PropTypes.array,
 		unplace: PropTypes.func,
 		storeState: PropTypes.object,
+		width: PropTypes.number,
+		height: PropTypes.number,
+		rows: PropTypes.number,
+		cols: PropTypes.number,
 	}
 	onClick = pieceID => () => {
 		const {
@@ -32,7 +36,7 @@ class Board extends React.Component {
 				style={{
 					width: `${width}px`,
 					height: `${height}px`,
-					'grid-template': `repeat(${rows}, calc(100%/${rows})) / repeat(${cols}, calc(100%/${cols}))`,
+					gridTemplate: `repeat(${rows}, calc(100%/${rows})) / repeat(${cols}, calc(100%/${cols}))`,
 				}}
 			>
 				{pieces.map((data, key) =>

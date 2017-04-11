@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { createPiece } from '../redux/unplaced'
+import { setImage, setGrid } from '../redux/game'
 import { getImage, getDimensions, getGrid } from '../redux/selectors'
 import Layout from './layout'
 
@@ -11,14 +12,15 @@ class App extends React.Component {
 		width: PropTypes.number.isRequired,
 		height: PropTypes.number.isRequired,
 		img: PropTypes.string.isRequired,
-		_createPiece: PropTypes.func,
+		createPiece: PropTypes.func,
+		setGrid: PropTypes.func,
+		setImage: PropTypes.func,
 	}
 	constructor(props) {
 		super(props)
-		this.generatePieces()
+		this.setGame()
 	}
-	generatePieces = () => {
-		const { rows, cols, width, height, img } = this.props
+	generatePieces = ({ rows, cols, width, height, img }) => {
 		const colWidth = width / cols
 		const rowHeight = height / rows
 		return 'r'
@@ -29,7 +31,7 @@ class App extends React.Component {
 					.repeat(rows)
 					.split('')
 					.map((_c, c) =>
-						this.props._createPiece({
+						this.props.createPiece({
 							img,
 							x: colWidth * c,
 							y: rowHeight * r,
@@ -39,6 +41,23 @@ class App extends React.Component {
 						})
 					)
 			)
+	}
+	setGame = () => {
+		this.props.setImage({
+			img: 'https://pbs.twimg.com/profile_images/3560120116/4f71587922c2b76312e71e0512e9c0f5_400x400.png',
+			height: 400,
+			width: 400,
+		})
+		this.props.setGrid({
+			rows: 3,
+			cols: 3,
+		})
+	}
+	componentWillReceiveProps(next) {
+		const { img, rows, cols, width, height } = next
+		if (img && rows && cols && width && height) {
+			this.generatePieces({ rows, cols, width, height, img })
+		}
 	}
 	render() {
 		const { img, height, width, rows, cols } = this.props
@@ -60,10 +79,10 @@ const mapStateToProps = state => ({
 	...getGrid(state),
 })
 
-const mapDispatchToProps = dispatch => ({
-	_createPiece(data) {
-		dispatch(createPiece(data))
-	},
-})
+const mapDispatchToProps = {
+	createPiece,
+	setImage,
+	setGrid,
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)

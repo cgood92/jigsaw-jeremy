@@ -2,11 +2,11 @@ export const SET_IMAGE = 'react-puzzle/game/SET_IMAGE'
 export const SET_GRID = 'react-puzzle/game/SET_GRID'
 
 const INITIAL_STATE = {
-	img: 'https://pbs.twimg.com/profile_images/3560120116/4f71587922c2b76312e71e0512e9c0f5_400x400.png',
-	height: 400,
-	width: 400,
-	rows: 3,
-	cols: 3,
+	img: '',
+	height: 0,
+	width: 0,
+	rows: 0,
+	cols: 0,
 }
 
 export default function reducer(state = INITIAL_STATE, action = {}) {

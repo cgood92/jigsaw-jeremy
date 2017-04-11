@@ -19,9 +19,22 @@ class Board extends React.Component {
 		unplace(storeState, pieceID)
 	}
 	render() {
-		const { pieces = [] } = this.props
+		const {
+			pieces = [],
+			width,
+			height,
+			rows,
+			cols,
+		} = this.props
 		return (
-			<section className="root">
+			<section
+				className="root"
+				style={{
+					width: `${width}px`,
+					height: `${height}px`,
+					'grid-template': `repeat(${rows}, calc(100%/${rows})) / repeat(${cols}, calc(100%/${cols}))`,
+				}}
+			>
 				{pieces.map((data, key) =>
 					<Piece
 						key={key}
@@ -32,9 +45,6 @@ class Board extends React.Component {
 				<style jsx>{`
 					.root {
 						display: grid;
-						grid-template: repeat(3, calc(100%/3)) / repeat(3, calc(100%/3));
-						width: 400px;
-						height: 400px;
 					}
 				`}</style>
 			</section>

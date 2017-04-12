@@ -33,6 +33,10 @@ class Holder extends React.Component {
 					.root {
 						display: flex;
 						flex-wrap: wrap;
+						margin-right: -4rem;
+					}
+					.root :global(figure) {
+						margin: 4rem 0 4rem 4rem;
 					}
 				`}</style>
 			</section>

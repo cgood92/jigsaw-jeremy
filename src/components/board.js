@@ -4,6 +4,7 @@ import { getPlacedPieces, getPiece } from '../redux/selectors'
 import { unplacePiece } from '../redux/unplaced'
 
 import Piece from './piece'
+import Blank from './blank'
 
 class Board extends React.Component {
 	static propTypes = {
@@ -22,6 +23,26 @@ class Board extends React.Component {
 		} = this.props
 		unplace(storeState, pieceID)
 	}
+	generateBlanks = () => {
+		const {
+			pieces,
+			width,
+			height,
+			rows,
+			cols,
+		} = this.props
+		const blanksNeeded = (rows * cols) - pieces.length
+		return 'b'
+			.repeat(blanksNeeded)
+			.split('')
+			.map((b, i) =>
+				<Blank
+					key={i}
+					width={width / cols}
+					height={height / rows}
+				/>
+			)
+	}
 	render() {
 		const {
 			pieces = [],
@@ -30,6 +51,7 @@ class Board extends React.Component {
 			rows,
 			cols,
 		} = this.props
+		const blanks = this.generateBlanks()
 		return (
 			<section
 				className="root"
@@ -46,6 +68,7 @@ class Board extends React.Component {
 						{...data}
 					/>
 				)}
+				{blanks}
 				<style jsx>{`
 					.root {
 						display: grid;

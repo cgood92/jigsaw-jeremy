@@ -37,7 +37,7 @@ class App extends React.Component {
 							y: rowHeight * r,
 							width: colWidth,
 							height: rowHeight,
-							pieceID: (r * rows) + c + 1,
+							pieceID: (r * rows) + c,
 						})
 					)
 			)

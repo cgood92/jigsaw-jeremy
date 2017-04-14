@@ -7,16 +7,14 @@ const INITIAL_STATE = {}
 export default function reducer(state = INITIAL_STATE, action = {}) {
 	const { type, data } = action
 	switch (type) {
-		case PLACE_PIECE: {
-			const order = Object.keys(state).length
+		case PLACE_PIECE:
 			return {
 				...state,
 				[data.pieceID]: {
 					...data,
-					order,
+					order: data.blankID,
 				},
 			}
-		}
 		case UNPLACE_PIECE: {
 			const { [String(data.pieceID)]: target, ...rest } = state
 			return rest
@@ -26,4 +24,4 @@ export default function reducer(state = INITIAL_STATE, action = {}) {
 	}
 }
 
-export const placePiece = data => ({ type: PLACE_PIECE, data })
+export const placePiece = (piece, blankID) => ({ type: PLACE_PIECE, data: { ...piece, blankID } })

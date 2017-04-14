@@ -1,4 +1,6 @@
 import React, { PropTypes } from 'react'
+import { DragDropContext } from 'react-dnd'
+import HTML5Backend from 'react-dnd-html5-backend'
 import Board from './board'
 import Holder from './holder'
 
@@ -50,4 +52,4 @@ Layout.propTypes = {
 	img: PropTypes.string.isRequired,
 }
 
-export default Layout
+export default DragDropContext(HTML5Backend)(Layout)

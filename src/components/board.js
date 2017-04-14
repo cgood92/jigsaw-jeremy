@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { getPlacedPieces, getPiece } from '../redux/selectors'
 import { unplacePiece } from '../redux/unplaced'
+import { placePiece } from '../redux/placed'
 
 import Piece from './piece'
 import Blank from './blank'
@@ -10,6 +11,7 @@ class Board extends React.Component {
 	static propTypes = {
 		pieces: PropTypes.array,
 		unplace: PropTypes.func,
+		place: PropTypes.func,
 		storeState: PropTypes.object,
 		width: PropTypes.number,
 		height: PropTypes.number,
@@ -30,18 +32,29 @@ class Board extends React.Component {
 			height,
 			rows,
 			cols,
+			place,
+			storeState,
 		} = this.props
-		const blanksNeeded = (rows * cols) - pieces.length
-		return 'b'
-			.repeat(blanksNeeded)
-			.split('')
-			.map((b, i) =>
-				<Blank
-					key={i}
-					width={width / cols}
-					height={height / rows}
-				/>
-			)
+		const blanks = []
+		const alreadyUsedOrders = pieces.reduce((acc, { order }) => {
+			acc[order] = true
+			return acc
+		}, {})
+		const totalPieces = (rows * cols)
+		for (let i = 0; i < totalPieces; i++) {
+			if (!alreadyUsedOrders[i]) {
+				blanks.push(
+					<Blank
+						key={i}
+						width={width / cols}
+						height={height / rows}
+						order={i}
+						place={place(storeState, i)}
+					/>
+				)
+			}
+		}
+		return blanks
 	}
 	render() {
 		const {
@@ -85,9 +98,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-	unplace(storeState, pieceID) {
-		dispatch(unplacePiece(getPiece(storeState, pieceID)))
-	},
+	unplace: storeState => pieceID => dispatch(unplacePiece(getPiece(storeState, pieceID))),
+	place: (storeState, blankID) => pieceID => dispatch(placePiece(getPiece(storeState, pieceID), blankID)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Board)

@@ -10,8 +10,8 @@ export const generatePieces = ({ img, width, height, rows, cols }, cb) => {
 				.split('')
 				.forEach((_c, c) => cb({
 					img,
-					x: colWidth * c,
-					y: rowHeight * r,
+					x: colWidth * r,
+					y: rowHeight * c,
 					width: colWidth,
 					height: rowHeight,
 					pieceID: (r * rows) + c,

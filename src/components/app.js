@@ -28,7 +28,7 @@ class App extends React.Component {
 			width: 400,
 		})
 		this.props.setGrid({
-			rows: 3,
+			rows: 5,
 			cols: 3,
 		})
 	}

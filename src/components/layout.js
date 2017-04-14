@@ -4,16 +4,13 @@ import HTML5Backend from 'react-dnd-html5-backend'
 import Board from './board'
 import Holder from './holder'
 
-const Layout = ({ img, height, width, cols, rows }) => (
+const Layout = ({ height, width, cols, rows }) => (
 	<main>
 		<section className="holder">
-			<Holder
-				img={img}
-			/>
+			<Holder/>
 		</section>
 		<section className="board">
 			<Board
-				img={img}
 				height={height}
 				width={width}
 				rows={rows}
@@ -49,7 +46,6 @@ Layout.propTypes = {
 	cols: PropTypes.number.isRequired,
 	width: PropTypes.number.isRequired,
 	height: PropTypes.number.isRequired,
-	img: PropTypes.string.isRequired,
 }
 
 export default DragDropContext(HTML5Backend)(Layout)

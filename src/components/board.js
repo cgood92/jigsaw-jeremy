@@ -1,8 +1,11 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
+
 import { getPlacedPieces, getPiece } from '../redux/selectors'
 import { unplacePiece } from '../redux/unplaced'
 import { placePiece } from '../redux/placed'
+
+import { generateBlanks } from '../init-game'
 
 import Piece from './piece'
 import Blank from './blank'
@@ -10,51 +13,10 @@ import Blank from './blank'
 class Board extends React.Component {
 	static propTypes = {
 		pieces: PropTypes.array,
-		unplace: PropTypes.func,
-		place: PropTypes.func,
-		storeState: PropTypes.object,
 		width: PropTypes.number,
 		height: PropTypes.number,
 		rows: PropTypes.number,
 		cols: PropTypes.number,
-	}
-	onClick = pieceID => () => {
-		const {
-			unplace,
-			storeState,
-		} = this.props
-		unplace(storeState, pieceID)
-	}
-	generateBlanks = () => {
-		const {
-			pieces,
-			width,
-			height,
-			rows,
-			cols,
-			place,
-			storeState,
-		} = this.props
-		const blanks = []
-		const alreadyUsedOrders = pieces.reduce((acc, { order }) => {
-			acc[order] = true
-			return acc
-		}, {})
-		const totalPieces = (rows * cols)
-		for (let i = 0; i < totalPieces; i++) {
-			if (!alreadyUsedOrders[i]) {
-				blanks.push(
-					<Blank
-						key={i}
-						width={width / cols}
-						height={height / rows}
-						order={i}
-						place={place(storeState, i)}
-					/>
-				)
-			}
-		}
-		return blanks
 	}
 	render() {
 		const {
@@ -64,7 +26,7 @@ class Board extends React.Component {
 			rows,
 			cols,
 		} = this.props
-		const blanks = this.generateBlanks()
+		const blanks = generateBlanks(this.props).map((info, key) => <Blank key={key} {...info}/>)
 		return (
 			<section
 				className="root"
@@ -74,13 +36,7 @@ class Board extends React.Component {
 					gridTemplate: `repeat(${rows}, calc(100%/${rows})) / repeat(${cols}, calc(100%/${cols}))`,
 				}}
 			>
-				{pieces.map((data, key) =>
-					<Piece
-						key={key}
-						handleClick={this.onClick}
-						{...data}
-					/>
-				)}
+				{pieces.map((data, key) => <Piece key={key} {...data}/>)}
 				{blanks}
 				<style jsx>{`
 					.root {

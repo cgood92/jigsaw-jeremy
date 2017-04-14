@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { createPiece } from '../redux/unplaced'
 import { setImage, setGrid } from '../redux/game'
 import { getImage, getDimensions, getGrid } from '../redux/selectors'
+import { generatePieces } from '../init-game'
 import Layout from './layout'
 
 class App extends React.Component {
@@ -20,28 +21,6 @@ class App extends React.Component {
 		super(props)
 		this.setGame()
 	}
-	generatePieces = ({ rows, cols, width, height, img }) => {
-		const colWidth = width / cols
-		const rowHeight = height / rows
-		return 'r'
-			.repeat(cols)
-			.split('')
-			.map((_r, r) =>
-				'c'
-					.repeat(rows)
-					.split('')
-					.map((_c, c) =>
-						this.props.createPiece({
-							img,
-							x: colWidth * c,
-							y: rowHeight * r,
-							width: colWidth,
-							height: rowHeight,
-							pieceID: (r * rows) + c,
-						})
-					)
-			)
-	}
 	setGame = () => {
 		this.props.setImage({
 			img: 'https://pbs.twimg.com/profile_images/3560120116/4f71587922c2b76312e71e0512e9c0f5_400x400.png',
@@ -56,7 +35,7 @@ class App extends React.Component {
 	componentWillReceiveProps(next) {
 		const { img, rows, cols, width, height } = next
 		if (img && rows && cols && width && height) {
-			this.generatePieces({ rows, cols, width, height, img })
+			generatePieces({ rows, cols, width, height, img }, this.props.createPiece)
 		}
 	}
 	render() {

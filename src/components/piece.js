@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { DragSource } from 'react-dnd'
+import { DragSource, DropTarget } from 'react-dnd'
 
 import { combineClasses } from '../util/common'
 import { getPlacedOrder } from '../redux/selectors'
@@ -14,6 +14,7 @@ class Piece extends React.Component {
 		img: PropTypes.string.isRequired,
 		order: PropTypes.number,
 		connectDragSource: PropTypes.func.isRequired,
+		connectDropTarget: PropTypes.func.isRequired,
 	}
 	render() {
 		const {
@@ -24,8 +25,9 @@ class Piece extends React.Component {
 			height,
 			order,
 			connectDragSource,
+			connectDropTarget,
 		} = this.props
-		return connectDragSource(
+		return connectDragSource(connectDropTarget(
 			<figure
 				style={{
 					width,
@@ -45,7 +47,7 @@ class Piece extends React.Component {
 					}
 				`}</style>
 			</figure>
-		)
+		))
 	}
 }
 
@@ -55,14 +57,29 @@ const pieceSource = {
 	},
 }
 
-const collect = (connect, monitor) => {
+const sourceCollect = (connect, monitor) => {
 	return {
 		connectDragSource: connect.dragSource(),
 		isDragging: monitor.isDragging(),
 	}
 }
 
-const PieceWithRedux = DragSource('piece', pieceSource, collect)(Piece)
+const pieceTarget = {
+	drop(props, monitor) {
+		const item = monitor.getItem()
+		props.switchPiece(item.pieceID, props.pieceID)
+	},
+}
+
+function targetCollect(connect, monitor) {
+	return {
+		connectDropTarget: connect.dropTarget(),
+		isOver: monitor.isOver({ shallow: true }),
+	}
+}
+
+const PieceWithRedux = DropTarget('piece', pieceTarget, targetCollect)(DragSource('piece', pieceSource, sourceCollect)(Piece))
+// const PieceWithRedux = DragSource('piece', pieceSource, sourceCollect)(DropTarget('piece', pieceTarget, targetCollect)(Piece))
 
 const mapStateToProps = (state, { pieceID }) => ({
 	order: getPlacedOrder(state, pieceID),

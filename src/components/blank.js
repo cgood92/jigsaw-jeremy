@@ -27,10 +27,11 @@ class Blank extends React.Component {
 						width: 100%;
 						background-color: lightgray;
 						border: 1px solid black;
-						transition: background-color .5s;
+						transition: background-color .2s, transform .2s;
 					}
 					.root.targeted {
 						background-color: lightgreen;
+						transform: scale(1.1);
 						border: 3px solid black;
 					}
 				`}</style>

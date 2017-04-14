@@ -21,8 +21,6 @@ export const generatePieces = ({ img, width, height, rows, cols }, cb) => {
 
 export const generateBlanks = ({
 	pieces,
-	width,
-	height,
 	rows,
 	cols,
 	place,
@@ -30,8 +28,6 @@ export const generateBlanks = ({
 }) => {
 	const blanks = []
 	const totalPieces = (rows * cols)
-	const pieceWidth = width / cols
-	const pieceHeight = height / rows
 
 	const alreadyUsedOrders = pieces.reduce((acc, { order }) => {
 		acc[order] = true
@@ -40,8 +36,6 @@ export const generateBlanks = ({
 	for (let order = 0; order < totalPieces; order++) {
 		if (!alreadyUsedOrders[order]) {
 			blanks.push({
-				width: pieceWidth,
-				height: pieceHeight,
 				order,
 				place: place(storeState, order),
 			})

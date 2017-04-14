@@ -1,34 +1,37 @@
 import React, { PropTypes } from 'react'
 import { DropTarget } from 'react-dnd'
+import { combineClasses } from '../util/common'
 
 class Blank extends React.Component {
 	static propTypes = {
-		width: PropTypes.number,
-		height: PropTypes.number,
 		order: PropTypes.number,
+		isOver: PropTypes.bool,
 		connectDropTarget: PropTypes.func.isRequired,
 	}
 	render() {
 		const {
-			width,
-			height,
 			order,
+			isOver,
 			connectDropTarget,
 		} = this.props
 		return connectDropTarget(
 			<div
-				className="root"
+				className={combineClasses('root', isOver && 'targeted')}
 				style={{
 					order,
-					width: `${width}px`,
-					height: `${height}px`,
 				}}
 			>
 				<style jsx>{`
 					.root {
-						order: 100;
+						height: 100%;
+						width: 100%;
 						background-color: lightgray;
 						border: 1px solid black;
+						transition: background-color .5s;
+					}
+					.root.targeted {
+						background-color: lightgreen;
+						border: 3px solid black;
 					}
 				`}</style>
 			</div>
@@ -46,10 +49,7 @@ const pieceTarget = {
 function collect(connect, monitor) {
 	return {
 		connectDropTarget: connect.dropTarget(),
-		isOver: monitor.isOver(),
-		isOverCurrent: monitor.isOver({ shallow: true }),
-		canDrop: monitor.canDrop(),
-		itemType: monitor.getItemType(),
+		isOver: monitor.isOver({ shallow: true }),
 	}
 }
 

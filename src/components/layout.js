@@ -38,6 +38,11 @@ const Layout = ({ height, width, cols, rows }) => (
 				overflow: auto;
 			}
 		`}</style>
+		<style jsx global>{`
+			* {
+				box-sizing: border-box;
+			}
+		`}</style>
 	</main>
 )
 

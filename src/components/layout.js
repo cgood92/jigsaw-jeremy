@@ -22,13 +22,13 @@ const Layout = ({ img, height, width, cols, rows }) => (
 			main {
 				display: flex;
 				width: 100%;
-				height: 100%;
-				min-height: 100vh;
+				height: 100vh;
 				justify-content: center;
 			}
 			.holder {
 				width: 33%;
 				background-color: lightblue;
+				overflow: auto;
 			}
 			.board {
 				width: 67%;
@@ -36,6 +36,7 @@ const Layout = ({ img, height, width, cols, rows }) => (
 				display: flex;
 				justify-content: center;
 				align-items: center;
+				overflow: auto;
 			}
 		`}</style>
 	</main>

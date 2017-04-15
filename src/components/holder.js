@@ -12,7 +12,13 @@ class Holder extends React.Component {
 		const { pieces = [] } = this.props
 		return (
 			<section className="root">
-				{pieces.map((data, key) => <Piece key={key} {...data}/>)}
+				{pieces.map((data, key) =>
+					<Piece
+						key={key}
+						from="holder"
+						{...data}
+					/>
+				)}
 				<style jsx>{`
 					.root {
 						display: flex;

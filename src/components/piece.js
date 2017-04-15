@@ -53,7 +53,10 @@ class Piece extends React.Component {
 
 const pieceSource = {
 	beginDrag(props) {
-		return { pieceID: props.pieceID }
+		return {
+			pieceID: props.pieceID,
+			from: props.from,
+		}
 	},
 }
 
@@ -67,7 +70,7 @@ const sourceCollect = (connect, monitor) => {
 const pieceTarget = {
 	drop(props, monitor) {
 		const item = monitor.getItem()
-		props.switchPiece(item.pieceID, props.pieceID)
+		props.onDrop(item, props)
 	},
 }
 
@@ -79,7 +82,6 @@ function targetCollect(connect, monitor) {
 }
 
 const PieceWithRedux = DropTarget('piece', pieceTarget, targetCollect)(DragSource('piece', pieceSource, sourceCollect)(Piece))
-// const PieceWithRedux = DragSource('piece', pieceSource, sourceCollect)(DropTarget('piece', pieceTarget, targetCollect)(Piece))
 
 const mapStateToProps = (state, { pieceID }) => ({
 	order: getPlacedOrder(state, pieceID),

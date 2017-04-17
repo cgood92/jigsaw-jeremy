@@ -27,7 +27,8 @@ const Layout = ({ height, width, cols, rows }) => (
 			.holder {
 				width: 33%;
 				background-color: lightblue;
-				overflow: auto;
+				overflow-x: hidden;
+				overflow-y: auto;
 			}
 			.board {
 				width: 67%;

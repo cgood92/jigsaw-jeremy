@@ -24,6 +24,7 @@ class Piece extends React.Component {
 			width,
 			height,
 			order,
+			isDragging,
 			connectDragSource,
 			connectDropTarget,
 		} = this.props
@@ -36,7 +37,7 @@ class Piece extends React.Component {
 					backgroundImage: `url(${img})`,
 					backgroundPosition: `-${x}px -${y}px`,
 				}}
-				className={combineClasses(order === undefined && 'loose')}
+				className={combineClasses(order === undefined && 'loose', isDragging && 'dragging')}
 			>
 				<style jsx>{`
 					figure {
@@ -44,6 +45,9 @@ class Piece extends React.Component {
 						height: 100%;
 						overflow: hidden;
 						border: 1px solid black;
+						cursor: -moz-grab;
+						cursor: -webkit-grab;
+						cursor: grab;
 					}
 				`}</style>
 			</figure>

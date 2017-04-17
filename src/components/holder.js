@@ -12,6 +12,11 @@ class Holder extends React.Component {
 		pieces: PropTypes.array,
 		connectDropTarget: PropTypes.func.isRequired,
 		isOver: PropTypes.bool,
+		storeState: PropTypes.object,
+		unplace: PropTypes.func,
+	}
+	handleRemove = item => {
+		this.props.unplace(this.props.storeState, item.pieceID)
 	}
 	render() {
 		const {
@@ -25,6 +30,7 @@ class Holder extends React.Component {
 					<Piece
 						key={key}
 						from="holder"
+						onDrop={this.handleRemove}
 						{...data}
 					/>
 				)}

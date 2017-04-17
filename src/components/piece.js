@@ -13,6 +13,7 @@ class Piece extends React.Component {
 		height: PropTypes.number.isRequired,
 		img: PropTypes.string.isRequired,
 		order: PropTypes.number,
+		isDragging: PropTypes.bool,
 		connectDragSource: PropTypes.func.isRequired,
 		connectDropTarget: PropTypes.func.isRequired,
 	}

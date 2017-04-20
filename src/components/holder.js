@@ -26,28 +26,42 @@ class Holder extends React.Component {
 		} = this.props
 		return connectDropTarget(
 			<section className={combineClasses('root', isOver && 'drop-hover')}>
-				{pieces.map((data, key) =>
-					<Piece
-						key={key}
-						from="holder"
-						onDrop={this.handleRemove}
-						{...data}
-					/>
-				)}
+				<div className="flex">
+					{pieces.map((data, key) =>
+						<Piece
+							key={key}
+							from="holder"
+							onDrop={this.handleRemove}
+							{...data}
+						/>
+					)}
+				</div>
 				<style jsx>{`
 					.root {
+						height: 100%;
+					}
+					.flex {
+						width: 100%;
 						display: flex;
 						flex-wrap: wrap;
-						margin-left: auto;
-						width: 100%;
-						height: 100%;
-						transition: all .2s;
 					}
 					.root :global(figure) {
 						margin: .5rem;
 					}
-					.drop-hover {
-						background-color: blue;
+					.root::after {
+						content: "";
+						opacity: 0.7;
+						background-color: white;
+						top: 0;
+						left: 0;
+						bottom: 0;
+						right: 0;
+						position: absolute;
+						z-index: -1;
+						transition: all .2s;
+					}
+					.drop-hover::after {
+						opacity: .4;
 					}
 				`}</style>
 			</section>

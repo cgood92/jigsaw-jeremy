@@ -4,6 +4,7 @@ import { createPiece } from '../redux/unplaced'
 import { setImage, setGrid } from '../redux/game'
 import { getImage, getDimensions, getGrid } from '../redux/selectors'
 import { generatePieces } from '../init-game'
+import jeremy from '../static/jeremy.jpg'
 import Layout from './layout'
 
 class App extends React.Component {
@@ -23,9 +24,9 @@ class App extends React.Component {
 	}
 	setGame = () => {
 		this.props.setImage({
-			img: 'https://pbs.twimg.com/profile_images/3560120116/4f71587922c2b76312e71e0512e9c0f5_400x400.png',
-			height: 400,
-			width: 400,
+			img: jeremy,
+			height: 637,
+			width: 857,
 		})
 		this.props.setGrid({
 			rows: 5,

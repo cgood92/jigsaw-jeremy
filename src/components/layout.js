@@ -1,6 +1,9 @@
 import React, { PropTypes } from 'react'
 import { DragDropContext } from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend'
+
+import flash from '../static/flash.jpg'
+import jazz from '../static/jazz.jpg'
 import Board from './board'
 import Holder from './holder'
 
@@ -26,13 +29,28 @@ const Layout = ({ height, width, cols, rows }) => (
 			}
 			.holder {
 				width: 33%;
-				background-color: lightblue;
 				overflow-x: hidden;
 				overflow-y: auto;
+				position: relative;
+			}
+			.holder::after {
+				content: "";
+				background-image: url(${jazz});
+				background-size: cover;
+				background-position: center center;
+				/*opacity: 0.1;*/
+				top: 0;
+				left: 0;
+				bottom: 0;
+				right: 0;
+				position: absolute;
+				z-index: -2;
 			}
 			.board {
 				width: 67%;
-				background-color: lightgreen;
+				background-image: url(${flash});
+				background-position: right bottom;
+				background-repeat: no-repeat;
 				display: flex;
 				justify-content: center;
 				align-items: center;

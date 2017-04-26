@@ -11,6 +11,7 @@
 	"author": "Clint Goodman",
 	"license": "ISC",
 	"dependencies": {
+		"array-shuffle": "^1.0.1",
 		"babel-core": "^6.23.1",
 		"babel-eslint": "^7.2.1",
 		"babel-loader": "^6.4.0",

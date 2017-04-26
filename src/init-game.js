@@ -1,4 +1,7 @@
+import arrayShuffle from 'array-shuffle'
+
 export const generatePieces = ({ img, width, height, rows, cols }, cb) => {
+	const randomPieceOrder = arrayShuffle(Array(rows * cols).fill(0).map((_, i) => i))
 	const colWidth = width / cols
 	const rowHeight = height / rows
 	return 'r'
@@ -14,7 +17,8 @@ export const generatePieces = ({ img, width, height, rows, cols }, cb) => {
 					y: rowHeight * c,
 					width: colWidth,
 					height: rowHeight,
-					pieceID: (r * rows) + c,
+					pieceID: (c * cols) + r,
+					order: randomPieceOrder[(c * cols) + r],
 				}))
 		)
 }

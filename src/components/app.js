@@ -2,10 +2,11 @@ import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { createPiece } from '../redux/unplaced'
 import { setImage, setGrid } from '../redux/game'
-import { getImage, getDimensions, getGrid } from '../redux/selectors'
+import { getImage, getDimensions, getGrid, isGameDone } from '../redux/selectors'
 import { generatePieces } from '../init-game'
 import jeremy from '../static/jeremy.jpg'
 import Layout from './layout'
+import WinnerPage from './winner-page'
 
 class App extends React.Component {
 	static propTypes = {
@@ -17,12 +18,14 @@ class App extends React.Component {
 		createPiece: PropTypes.func,
 		setGrid: PropTypes.func,
 		setImage: PropTypes.func,
+		isGameDone: PropTypes.bool,
 	}
 	constructor(props) {
 		super(props)
 		this.setGame()
 	}
 	setGame = () => {
+		// Hardcoding this for now
 		this.props.setImage({
 			img: jeremy,
 			height: 637,
@@ -30,17 +33,26 @@ class App extends React.Component {
 		})
 		this.props.setGrid({
 			rows: 5,
-			cols: 3,
+			cols: 5,
 		})
 	}
 	componentWillReceiveProps(next) {
-		const { img, rows, cols, width, height } = next
-		if (img && rows && cols && width && height) {
+		const { img, rows, cols, width, height, isGameDone } = next
+		if (img && rows && cols && width && height && !isGameDone) {
 			generatePieces({ rows, cols, width, height, img }, this.props.createPiece)
 		}
 	}
 	render() {
-		const { img, height, width, rows, cols } = this.props
+		const { img, height, width, rows, cols, isGameDone } = this.props
+		if (isGameDone) {
+			return (
+				<WinnerPage
+					img={img}
+					height={height}
+					width={width}
+				/>
+			)
+		}
 		return (
 			<Layout
 				img={img}
@@ -57,6 +69,7 @@ const mapStateToProps = state => ({
 	img: getImage(state),
 	...getDimensions(state),
 	...getGrid(state),
+	isGameDone: isGameDone(state),
 })
 
 const mapDispatchToProps = {

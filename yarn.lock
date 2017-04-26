@@ -2605,6 +2605,10 @@ find-versions@^1.0.0:
     meow "^3.5.0"
     semver-regex "^1.0.0"
 
+fireworks@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/fireworks/-/fireworks-2.1.1.tgz#4bed0eed61ddd72bfeee4a65d9eba0f603f1b10f"
+
 first-chunk-stream@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/first-chunk-stream/-/first-chunk-stream-1.0.0.tgz#59bfb50cd905f60d7c394cd3d9acaab4e6ad934e"
@@ -5044,6 +5048,10 @@ querystring@0.2.0:
 querystringify@0.0.x:
   version "0.0.4"
   resolved "https://registry.yarnpkg.com/querystringify/-/querystringify-0.0.4.tgz#0cf7f84f9463ff0ae51c4c4b142d95be37724d9c"
+
+random-int@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/random-int/-/random-int-1.0.0.tgz#e6a2ed3448ac9c6646a0657443b1c1521592ed08"
 
 randomatic@^1.1.3:
   version "1.1.6"

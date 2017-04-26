@@ -5,3 +5,4 @@ export const getUnplacedPieces = ({ unplaced }) => Object.keys(unplaced).map(id 
 export const getImage = ({ game }) => game.img
 export const getDimensions = ({ game: { height, width } }) => ({ height, width })
 export const getGrid = ({ game: { rows, cols } }) => ({ rows, cols })
+export const isGameDone = ({ game: { solved } }) => solved === true

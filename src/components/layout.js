@@ -36,14 +36,15 @@ const Layout = ({ height, width, cols, rows }) => (
 			.holder::after {
 				content: "";
 				background-image: url(${jazz});
+				background-color: #0C0C16;
 				background-size: cover;
 				background-position: center center;
-				/*opacity: 0.1;*/
+				background-repeat: repeat;
 				top: 0;
 				left: 0;
 				bottom: 0;
 				right: 0;
-				position: absolute;
+				position: fixed;
 				z-index: -2;
 			}
 			.board {

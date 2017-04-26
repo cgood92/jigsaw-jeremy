@@ -25,7 +25,7 @@ class Blank extends React.Component {
 					.root {
 						height: 100%;
 						width: 100%;
-						background-color: lightgray;
+						background-color: rgba(220, 220, 220, 0.8);
 						border: 1px solid black;
 						transition: background-color .2s, transform .2s;
 					}

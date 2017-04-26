@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import fireworks from 'fireworks'
 import { getRandom } from '../util/common'
+import victory from '../static/victory.gif'
 
 class WinnerPage extends Component {
 	static propTypes = {
@@ -33,7 +34,8 @@ class WinnerPage extends Component {
 						flex-flow: column nowrap;
 						align-items: center;
 						justify-content: center;
-						background-image: url();
+						background-image: url(${victory});
+						background-size: contain;
 						width: 100%;
 						height: 100vh;
 					}

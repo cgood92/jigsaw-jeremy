@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
+import { parse as qs } from 'query-string'
 import { createPiece } from '../redux/unplaced'
 import { setImage, setGrid } from '../redux/game'
 import { getImage, getDimensions, getGrid, isGameDone } from '../redux/selectors'
@@ -25,15 +26,22 @@ class App extends React.Component {
 		this.setGame()
 	}
 	setGame = () => {
+		const {
+			rows = 5,
+			cols = 5,
+			img = jeremy,
+			height = 637,
+			width = 857,
+		} = qs(window.location.search)
 		// Hardcoding this for now
 		this.props.setImage({
-			img: jeremy,
-			height: 637,
-			width: 857,
+			img,
+			height,
+			width,
 		})
 		this.props.setGrid({
-			rows: 5,
-			cols: 5,
+			rows,
+			cols,
 		})
 	}
 	componentWillReceiveProps(next) {
